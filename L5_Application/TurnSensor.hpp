@@ -28,11 +28,7 @@ class TurnSensTask:public scheduler_task
         bool run(void *p);
         void light_led(uint16_t reading);
     private:
-        uint16_t reading;
-        //GPIO left_led;
-        //GPIO right_led;
-        //GPIO headlight;
-        //bool headlight_flag;
+        uint16_t ADC_reading;
 };
 
 class LEDBlink:public scheduler_task
@@ -41,14 +37,10 @@ class LEDBlink:public scheduler_task
         LEDBlink(uint8_t priority);
         bool init(void);
         bool run(void *p);
-        //void light_led(uint16_t reading);
     private:
-        //uint16_t reading;
         GPIO left_led;
         GPIO right_led;
         GPIO center_led;
-        //GPIO headlight;
-        //bool headlight_flag;
 };
 
 

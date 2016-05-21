@@ -34,15 +34,10 @@ class TTSTask:public scheduler_task
         bool init(void);
         bool run(void *p);
 
-        //QueueHandle_t TextSelectQueue;
-
-
     private:
         Uart3 &tts_uart;
 
         bool startup = 1;
 };
-
-
 
 #endif /* TTS_HPP_ */

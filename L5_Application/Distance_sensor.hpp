@@ -149,7 +149,7 @@ class DistSensTask : public scheduler_task
                 headlight.setHigh();
                 delay_ms(25);
                 headlight.setLow();
-                //delay_ms(25);
+                delay_ms(25);
                 headlight_flag=1;
             }
             if(light_percent>15 && headlight_flag==1)
@@ -157,7 +157,7 @@ class DistSensTask : public scheduler_task
                 headlight.setHigh();
                 delay_ms(25);
                 headlight.setLow();
-                //delay_ms(10);
+                delay_ms(25);
                 headlight_flag=0;
             }
             LOG_INFO("Light:%d",light_percent);
