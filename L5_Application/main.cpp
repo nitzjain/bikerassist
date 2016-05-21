@@ -28,7 +28,7 @@
 #include "Distance_sensor.hpp"
 #include "tts.hpp"
 #include "TurnSensor.hpp"
-#include "headlight.hpp"
+
 /**
  * The main() creates tasks or "threads".  See the documentation of scheduler_task class at scheduler_task.hpp
  * for details.  There is a very simple example towards the beginning of this class's declaration.
@@ -74,7 +74,6 @@ int main(void)
 
     scheduler_add_task(new LEDBlink(PRIORITY_HIGH));// Turn detection
 
-   // scheduler_add_task(new headlight(PRIORITY_MEDIUM));
 
     /*************** Biker Assist Tasks End *************/
 
