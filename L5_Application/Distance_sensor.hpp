@@ -64,16 +64,16 @@ void Right_Sens_Falling_Int()
 
 class DistSensTask : public scheduler_task
 {
-        bool headlight_flag;
+        //bool headlight_flag;
     public:
-        GPIO headlight;
+        //GPIO headlight;
         GPIO Left_Tigger, Right_Trigger;
         GPIO Left_PWM, Right_PWM;
         DistSensTask(uint8_t priority) :
             scheduler_task("Maxbotix", 512*4, priority),
-            Left_Tigger(P1_29),Left_PWM(P2_0),Right_PWM(P2_1),Right_Trigger(P1_28),headlight(P1_22)
+            Left_Tigger(P1_29),Left_PWM(P2_0),Right_PWM(P2_1),Right_Trigger(P1_28)/*,headlight(P1_22)*/
         {
-            headlight_flag = 0;
+            //headlight_flag = 0;
             setRunDuration(50);
             /* Nothing to init */
         }
@@ -88,7 +88,7 @@ class DistSensTask : public scheduler_task
             Right_Trigger.setAsOutput();
             Right_PWM.setAsInput();
 
-            headlight.setAsOutput();
+            //headlight.setAsOutput();
 
             const uint8_t port2_0 = 0,port2_1=1;
             eint3_enable_port2(port2_0,eint_rising_edge,Left_Sens_Rising_Int);
@@ -140,27 +140,7 @@ class DistSensTask : public scheduler_task
                     //LE.toggle(1);
                     xSemaphoreGive(TTS_Semaphore);
                 }
-
             }
-            uint16_t light_percent=LS.getPercentValue();
-            // printf("Light percent %i",light_percent);
-            if(light_percent<15 && headlight_flag==0)
-            {
-                headlight.setHigh();
-                delay_ms(25);
-                headlight.setLow();
-                delay_ms(25);
-                headlight_flag=1;
-            }
-            if(light_percent>15 && headlight_flag==1)
-            {
-                headlight.setHigh();
-                delay_ms(25);
-                headlight.setLow();
-                delay_ms(25);
-                headlight_flag=0;
-            }
-            LOG_INFO("Light:%d",light_percent);
             return true;
         }
 };

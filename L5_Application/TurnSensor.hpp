@@ -29,6 +29,8 @@ class TurnSensTask:public scheduler_task
         void light_led(uint16_t reading);
     private:
         uint16_t ADC_reading;
+        GPIO headlight;
+        bool headlight_flag;
 };
 
 class LEDBlink:public scheduler_task
