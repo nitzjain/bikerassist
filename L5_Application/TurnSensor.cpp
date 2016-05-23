@@ -10,7 +10,7 @@
 
 #define LEFT_DIR_THRESH     1950
 #define RIGHT_DIR_THRESH    1800
-#define LIGHT_THRESHOLD     15
+#define LIGHT_THRESHOLD     12
 
 SemaphoreHandle_t LED_Semaphore;
 uint8_t Direction_flag = 0;
@@ -19,7 +19,7 @@ TurnSensTask::TurnSensTask(uint8_t priority):scheduler_task("TurnSensorTask", 4*
         headlight(P1_22)
 {
     //nothing to init
-    headlight_flag = 0;
+    /*headlight_flag = 0;*/
     ADC_reading=0;
     LED_Semaphore=NULL;
 }
@@ -32,6 +32,7 @@ bool TurnSensTask:: init()
     LPC_PINCON->PINSEL3 |=  (3 << 28); // ADC-4 is on P1.30, select this as ADC0.4
 
     headlight.setAsOutput();
+    headlight.setLow();
     return true;
 }
 
@@ -74,22 +75,22 @@ bool TurnSensTask::run(void *p)
     uint8_t light_percent=LS.getPercentValue();
     // printf("Light percent %i",light_percent);
     //If headlight OFF and value less than threshold...turn off trigger
-    if(light_percent<LIGHT_THRESHOLD && headlight_flag==0)
+    if(light_percent<LIGHT_THRESHOLD /*&& headlight_flag==0*/)
     {
         headlight.setHigh();
-        vTaskDelay(25);
+        /*vTaskDelay(25);
         headlight.setLow();
         vTaskDelay(25);
-        headlight_flag=1;
+        headlight_flag=1;*/
     }
     //If headlight ON and value greater than threshold...turn off trigger
-    else if(light_percent>LIGHT_THRESHOLD && headlight_flag==1)
+    else if(light_percent>LIGHT_THRESHOLD /*&& headlight_flag==1*/)
     {
-        headlight.setHigh();
-        vTaskDelay(25);
         headlight.setLow();
+        /*headlight.setHigh();
         vTaskDelay(25);
-        headlight_flag=0;
+        vTaskDelay(25);
+        headlight_flag=0;*/
     }
     LOG_INFO("Light:%d",light_percent);
 
@@ -145,4 +146,3 @@ bool LEDBlink::run(void *p)
 
     return true;
 }
-

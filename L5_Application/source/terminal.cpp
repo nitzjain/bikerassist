@@ -120,6 +120,8 @@ bool terminalTask::taskEntry()
                                              "Write buffer: buffer <offset> <num bytes> ...\n"
                                              "Write buffer to file: commit <filename> <file offset> <num bytes from buffer>");
     cp.addHandler(flashProgHandler, "flash", "'flash <filename>' Will flash CPU with this new binary file");
+    CMD_HANDLER_FUNC(TTSDirHandler);
+    cp.addHandler(TTSDirHandler,     "TTS",    "Text to speech direction command Ex: 'TTS right/ TTS left'");
 
     #if (SYS_CFG_ENABLE_TLM)
     cp.addHandler(telemetryHandler, "telemetry", "Outputs registered telemetry: "
